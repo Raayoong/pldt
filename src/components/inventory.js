@@ -13,7 +13,7 @@ const Inventory = () => {
         navigate(-1)
     }
     const inventoryList = async()=>{
-        const response = await fetch("/inventory/onhand");
+        const response = await fetch("https://pldt-backend.onrender.com/inventory/inventory/onhand");
         const data = await response.json();
 
         if(!response){
