@@ -17,7 +17,7 @@ const RequestOrder = () => {
         e.preventDefault();
         if(type!=="" && brand!=="" && ftTel!=="" && oldModel!=="" && oldSN!=="" && newSN!==""){
             const RO_input = {ftTel, type, brand, oldModel, oldSN, newSN};
-        const response = await fetch('/ft_request_order', {
+        const response = await fetch('https://pldt-backend.onrender.com//ft_request_order', {
             method: 'POST',
             body: JSON.stringify(RO_input),
             header: {
@@ -29,7 +29,7 @@ const RequestOrder = () => {
         if(response){
             console.log(data)
             // then update inventory table when serial is matched
-            await fetch('/inventory/update', {
+            await fetch('https://pldt-backend.onrender.com//inventory/update', {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json'
@@ -61,7 +61,7 @@ const RequestOrder = () => {
     } 
 
     const onuList = async()=>{
-        const response = await fetch(`/inventory/${brand}`)
+        const response = await fetch(`https://pldt-backend.onrender.com//inventory/${brand}`)
         const json = await response.json();
 
         if(!response){
@@ -71,7 +71,7 @@ const RequestOrder = () => {
 
     }
     const onuBrandList = async () => {
-        const response = await fetch(`/inventory/${type}/brands`);
+        const response = await fetch(`https://pldt-backend.onrender.com//inventory/${type}/brands`);
         const json = await response.json();
     
         if (!response.ok) {
