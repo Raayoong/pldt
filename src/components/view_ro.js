@@ -33,11 +33,14 @@ const ViewRO = () => {
    const updateStatus = async(e) => {
     e.preventDefault();
     const ro_status = {status}
-    const response = await fetch(`https://pldt-backend.onrender.com//ft_request_order/update/${id}`,{
+    const response = await fetch(`https://pldt-backend.onrender.com/ft_request_order/update/${id}`,{
       method: 'PATCH',
       body: JSON.stringify(ro_status),
       headers: {
-        'Content-type': 'application/json'
+        "access-control-allow-origin": "*",
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': '*',
       }
     
     })
