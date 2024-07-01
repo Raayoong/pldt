@@ -24,7 +24,7 @@ const AddInventory = () => {
 
     if(type!=="" && brand!=="" && model!=="" && onhand!=="" && serial!==""){
         const input = {brand, type, model, serial, onhand};
-        const response = await fetch('/inventory', {
+        const response = await fetch('https://pldt-backend.onrender.com/inventory', {
       method: "POST",
       body: JSON.stringify(input),
       headers: {
