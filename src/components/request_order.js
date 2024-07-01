@@ -21,7 +21,10 @@ const RequestOrder = () => {
             method: 'POST',
             body: JSON.stringify(RO_input),
             header: {
-            'Content-type': 'application/json'
+                "access-control-allow-origin": "*",
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                'Access-Control-Allow-Methods': '*',
             }
         })
         const data = await response.json();
@@ -32,7 +35,10 @@ const RequestOrder = () => {
             await fetch('https://pldt-backend.onrender.com/inventory/update', {
                 method: 'PATCH',
                 headers: {
-                    'Content-type': 'application/json'
+                    "access-control-allow-origin": "*",
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Methods': '*',
                     }
             })
     
