@@ -19,13 +19,14 @@ const ViewRO = () => {
 
     // fetch data 
     const ft_RoList = async() => {
-        const response = await fetch('/ft_request_order/ro_list');
+        const response = await fetch('https://pldt-backend.onrender.com/ft_request_order/ro_list');
         const json = await response.json();
 
         if(!response){
             console.log(response.error)
         }
         setList(json);
+        console.log(response)
       
     }
 
