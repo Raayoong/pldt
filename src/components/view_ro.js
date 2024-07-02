@@ -110,7 +110,7 @@ const ViewRO = () => {
       ];
 
     return ( 
-        <div className='w-full relative flex flex-col bg-slate-200 pt-[3.5rem] px-4 h-screen overflow-hidden'>
+        <div className='w-full relative flex flex-col bg-slate-200 pt-[3.5rem] px-4 h-full '>
            <div className='flex justify-between pb-2 fixed w-full left-0 bg-slate-200'>
            <button onClick={prevPage} className='p-2 flex items-center gap-1 font-semibold'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -130,7 +130,7 @@ Back</button>
 </CsvDownloader>
            </div>
            
-            <ul className='cardlist my-12'>
+            <ul className='cardlist my-12 h-full'>
               {
                 list.map(data => (
                   <li className=' bg-slate-50 mb-2 rounded-lg flex justify-between p-2' onClick={(e)=>{
