@@ -60,9 +60,14 @@ const Inventory = () => {
 
 
     <div className="w-full relative h-screen flex flex-col bg-slate-200 pt-[4rem] px-4">
-        <div className="flex justify-center gap-4 items-end my-2">
-            <button onClick={goBack} className="bg-green-400 w-full p-2">Back</button>
-            <Link className="bg-green-400 w-full p-2" to="/add_inventory">Add Inventory</Link>
+        <div className="flex justify-between gap-4 items-end my-2">
+            <button onClick={goBack} className="flex  font-semibold items-center  "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg>Back</button>
+            <Link className="flex items-center font-semibold text-blue-500" to="/add_inventory">Add Inventory<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+</svg>
+</Link>
          </div>
         <DataTable
         columns={columns}

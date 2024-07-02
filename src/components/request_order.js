@@ -1,7 +1,13 @@
 import DataTable from "react-data-table-component";
 import {useState, useEffect} from 'react';
-const RequestOrder = () => {
+import Select, {components} from 'react-select'
+import { useNavigate } from 'react-router-dom';
 
+const RequestOrder = () => {
+    // navigate
+    const navigate = useNavigate();
+
+    // states
     const [type, setType] = useState('');
     const [brand, setBrand] = useState('');
     const [isOnuList, setIsOnuList] = useState([]);
@@ -59,7 +65,9 @@ const RequestOrder = () => {
         }
         
     } 
-
+    const prevPage = ()=>{
+        navigate(-1)
+    }
     const onuList = async()=>{
         const response = await fetch(`https://pldt-backend.onrender.com/inventory/${brand}`)
         const json = await response.json();
@@ -81,6 +89,13 @@ const RequestOrder = () => {
 
       };
 
+    const options = 
+        
+        isOnuList.map(onulist => (
+            {value: onulist.serial_no, label: onulist.serial_no}
+        )
+           
+        )
     
   
     useEffect(()=>{
@@ -90,12 +105,13 @@ const RequestOrder = () => {
         // onuList();
         onuBrandList();
         onuList();
-       
+       console.log(newSN)
 
     },[type, brand])
 
     return ( 
         <div className="w-full h-screen bg-slate-200 px-4 pt-[4rem]">
+           
             {notifError &&
             <div className="p-4 mb-2 bg-red-400">
                 <p>Please fill all required details</p>
@@ -160,7 +176,7 @@ const RequestOrder = () => {
                 {(brand==="HUAWEI" || brand==="ZTE" || brand==="FIBERHOME")  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
-                    <select onChange={(e)=>{
+                    {/* <select onChange={(e)=>{
                         setNewSN(e.target.value)
                     }} value={newSN} className={`${newSN ? 'bg-slate-300': ''} w-full`} name="" id="">
                         <option value=""></option>
@@ -169,7 +185,28 @@ const RequestOrder = () => {
                             <option value={onulist.serial_no}>{onulist.model} - {onulist.serial_no}</option>
                         ))
                       }
-                    </select>
+                    </select> */}
+                    <Select
+                    unstyled
+                    onChange={(choice)=>{
+                        setNewSN(choice.value)
+                    }
+                        
+                        }
+                 
+                    className="w-full bg-slate-300"
+                    classNamePrefix="bg-slate-100"
+                     options={
+                        
+                       
+                        
+                        isOnuList.map(onulist => (
+                            
+            {value: onulist.serial_no, label: onulist.serial_no}
+        ))
+                     }
+                        isFocused
+                     />
                 </div>}
                 
                 </>
@@ -213,16 +250,24 @@ const RequestOrder = () => {
                 {(brand==="UVTECH" || brand==="LAYADA" || brand==="FULRUBELL")  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
-                    <select onChange={(e)=>{
-                        setNewSN(e.target.value)
-                    }} value={newSN} className={`${newSN ? 'bg-slate-300': ''} w-full`} name="" id="">
-                        <option value=""></option>
-                      {
+                    <Select
+                    unstyled
+                    onChange={(choice)=>{
+                        setNewSN(choice.value)
+                    }}
+                    className="w-full bg-slate-300"
+                    classNamePrefix="bg-slate-100"
+                     options={
+                        
+                       
+                        
                         isOnuList.map(onulist => (
-                            <option value={onulist.serial_no}>{onulist.model} - {onulist.serial_no}</option>
-                        ))
-                      }
-                    </select>
+                            
+            {value: onulist.serial_no, label: onulist.serial_no}
+        ))
+                     }
+                        isFocused
+                     />
                 </div>}
                 
                     </>
@@ -263,16 +308,24 @@ const RequestOrder = () => {
                 {(brand!=="")  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
-                    <select onChange={(e)=>{
-                        setNewSN(e.target.value)
-                    }} value={newSN} className={`${newSN ? 'bg-slate-300': ''} w-full`} name="" id="">
-                        <option value=""></option>
-                      {
+                    <Select
+                    unstyled
+                    onChange={(choice)=>{
+                        setNewSN(choice.value)
+                    }}
+                    className="w-full bg-slate-300"
+                    classNamePrefix="bg-slate-100"
+                     options={
+                        
+                       
+                        
                         isOnuList.map(onulist => (
-                            <option value={onulist.serial_no}>{onulist.model} - {onulist.serial_no}</option>
-                        ))
-                      }
-                    </select>
+                            
+            {value: onulist.serial_no, label: onulist.serial_no}
+        ))
+                     }
+                        isFocused
+                     />
                 </div>
                 
                 }
@@ -317,16 +370,24 @@ const RequestOrder = () => {
                 {(brand!=="")  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">CCA NO.</label>
-                    <select onChange={(e)=>{
-                        setNewSN(e.target.value)
-                    }} value={newSN} className={`${newSN ? 'bg-slate-300': ''} w-full`} name="" id="">
-                        <option value=""></option>
-                      {
+                    <Select
+                    unstyled
+                    onChange={(choice)=>{
+                        setNewSN(choice.value)
+                    }}
+                    className="w-full bg-slate-300"
+                    classNamePrefix="bg-slate-100"
+                     options={
+                        
+                       
+                        
                         isOnuList.map(onulist => (
-                            <option value={onulist.serial_no}>{onulist.model} - {onulist.serial_no}</option>
-                        ))
-                      }
-                    </select>
+                            
+            {value: onulist.serial_no, label: onulist.serial_no}
+        ))
+                     }
+                        isFocused
+                     />
                 </div>
                 
                 }
@@ -336,7 +397,7 @@ const RequestOrder = () => {
                 }          
 
                 <div className="flex justify-end gap-4">
-                    <button className="bg-red-400 p-2">Clear</button>
+                    <button onClick={prevPage} className="bg-red-400 p-2">Back</button>
                     <button type="submit" className="bg-green-400 p-2">Submit</button>
                 </div>
                 </form>
