@@ -89,14 +89,18 @@ const RequestOrder = () => {
 
       };
 
-    const options = 
-        
-        isOnuList.map(onulist => (
-            {value: onulist.serial_no, label: onulist.serial_no}
-        )
-           
-        )
+      
+
+const customStyles = {
+    option: (styles, {isFocused}) => {
+    return {
+      ...styles,
+      backgroundColor: isFocused ? "white" : "white",
+    };
+  }
+};
     
+
   
     useEffect(()=>{
         console.table(brandList )
@@ -158,7 +162,7 @@ const RequestOrder = () => {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
                         setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="number"  />
+                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
@@ -195,7 +199,7 @@ const RequestOrder = () => {
                         }
                  
                     className="w-full bg-slate-300"
-                    classNamePrefix="bg-slate-100"
+                    styles={customStyles}
                      options={
                         
                        
@@ -232,7 +236,7 @@ const RequestOrder = () => {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
                         setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="number"  />
+                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
@@ -256,7 +260,7 @@ const RequestOrder = () => {
                         setNewSN(choice.value)
                     }}
                     className="w-full bg-slate-300"
-                    classNamePrefix="bg-slate-100"
+                    styles={customStyles}
                      options={
                         
                        
@@ -290,7 +294,7 @@ const RequestOrder = () => {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
                         setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="number"  />
+                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
@@ -310,11 +314,12 @@ const RequestOrder = () => {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
                     <Select
                     unstyled
+                    styles={customStyles}
                     onChange={(choice)=>{
                         setNewSN(choice.value)
                     }}
                     className="w-full bg-slate-300"
-                    classNamePrefix="bg-slate-100"
+                    
                      options={
                         
                        
@@ -350,7 +355,7 @@ const RequestOrder = () => {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
                         setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="number"  />
+                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
@@ -376,7 +381,7 @@ const RequestOrder = () => {
                         setNewSN(choice.value)
                     }}
                     className="w-full bg-slate-300"
-                    classNamePrefix="bg-slate-100"
+                    styles={customStyles}
                      options={
                         
                        

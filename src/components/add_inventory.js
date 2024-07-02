@@ -85,7 +85,7 @@ const AddInventory = () => {
               setType(e.target.value);
             }}
             value={type}
-            className="bg-slate-300 w-full"
+            className={`${type!=='' ? 'bg-slate-300':''} w-full`}
             name=""
             id=""
           >
@@ -108,7 +108,7 @@ const AddInventory = () => {
               setBrand(e.target.value);
             }}
             value={brand}
-            className="bg-slate-300 p-2 w-full"
+            className={`${brand!=='' ? 'bg-slate-300':''} p-2 w-full`}
             type="text"
           />
         </div>
@@ -124,7 +124,7 @@ const AddInventory = () => {
               setModel(e.target.value);
             }}
             value={model}
-            className="bg-slate-300 p-2 w-full"
+            className={`${model!=='' ? 'bg-slate-300': ''} p-2 w-full`}
             type="text"
           />
         </div>
@@ -140,7 +140,7 @@ const AddInventory = () => {
               setOnHand(e.target.value);
             }}
             value={onhand}
-            className="bg-slate-300 p-2 w-full"
+            className={`${onhand!=='' ? 'bg-slate-300':''} p-2 w-full`}
             type="number"
           />
         </div>
@@ -156,7 +156,7 @@ const AddInventory = () => {
               setSerial(e.target.value);
             }}
             value={serial}
-            className="bg-slate-300 p-2 w-full"
+            className={`${serial!=='' ? 'bg-slate-300':''} p-2 w-full`}
             type="text"
           />
         </div>
