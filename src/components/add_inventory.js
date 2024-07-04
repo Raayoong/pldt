@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import { newInventoryItem } from "../App";
 
 
 const AddInventory = () => {
@@ -8,48 +9,27 @@ const AddInventory = () => {
   const [model, setModel] = useState("");
   const [onhand, setOnHand] = useState("");
   const [serial, setSerial] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
 
-  const successNotifRef = useRef(null)
 
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
   }
-
-  const submitInventoryHandler = async(e)=>{
+  const submitNewItem = async (e)=> {
     e.preventDefault();
-
-    if(type!=="" && brand!=="" && model!=="" && onhand!=="" && serial!==""){
-        const input = {brand, type, model, serial, onhand};
-        const response = await fetch('https://pldt-backend.onrender.com/inventory', {
-      method: "POST",
-      body: JSON.stringify(input),
-      headers: {
-        "Content-type" : "application/json"
+    try{
+        await newInventoryItem(brand, type, model, serial, onhand);
+        
       }
-    });
-    const json = await response.json();
-    if (!response) {
-      console.error(response.error);
-    }
-    setSuccess(true)
-    setTimeout(()=>{
-       setSuccess(false)
-    }, 5000)
-    }
-    else{
-        console.log("Please input required details")
-        setIsError(true)
-        setTimeout(()=>{
-            setIsError(false)
-         }, 5000)
-    }
+      
     
-    
-  };
+      
+    catch(error){
+      console.log(error)
+    }
+  }
+  
 
   useEffect(()=>{
     console.log(type)
@@ -57,22 +37,11 @@ const AddInventory = () => {
   })
 
   return (
+    
     <div className="w-full relative h-screen flex flex-col bg-slate-200 pt-[4rem] px-4">
-       {success && 
-        <div ref={successNotifRef} className="w-full bg-green-300 py-4">
-                <p>Successfully inserted new inventory</p>
-            </div>
-       }
-       {isError &&
-        <div ref={successNotifRef} className="w-full bg-red-300 py-4">
-                <p>Please fill in required details</p>
-            </div>
-       }
-           
-     
+
       
-      
-      <form onSubmit={submitInventoryHandler} className="flex flex-col gap-2 pt-4">
+      <form onSubmit={submitNewItem} className="flex flex-col gap-2 pt-4">
         <div className="form-group flex w-full">
           <label
             className="bg-slate-800 text-slate-100 p-2 w-[150px]"
@@ -107,7 +76,7 @@ const AddInventory = () => {
             onChange={(e) => {
               setBrand(e.target.value);
             }}
-            value={brand}
+            value={brand.toLocaleUpperCase()}
             className={`${brand!=='' ? 'bg-slate-300':''} p-2 w-full`}
             type="text"
           />
@@ -123,7 +92,7 @@ const AddInventory = () => {
             onChange={(e) => {
               setModel(e.target.value);
             }}
-            value={model}
+            value={model.toLocaleUpperCase()}
             className={`${model!=='' ? 'bg-slate-300': ''} p-2 w-full`}
             type="text"
           />
@@ -155,7 +124,7 @@ const AddInventory = () => {
             onChange={(e) => {
               setSerial(e.target.value);
             }}
-            value={serial}
+            value={serial.toLocaleUpperCase()}
             className={`${serial!=='' ? 'bg-slate-300':''} p-2 w-full`}
             type="text"
           />
@@ -164,12 +133,14 @@ const AddInventory = () => {
           <button type="submit" className="p-2 w-full bg-green-400">
             Submit
           </button>
-          <button onClick={goBack} className="p-2 w-full bg-slate-400">
-            Back
-          </button>
+          
           
         </div>
       </form>
+      <button onClick={goBack} className="p-2 mt-2 w-full bg-slate-400">
+            Back
+          </button>
+      
     </div>
   );
 };

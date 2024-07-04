@@ -2,94 +2,64 @@ import DataTable from "react-data-table-component";
 import {useState, useEffect} from 'react';
 import Select, {components} from 'react-select'
 import { useNavigate } from 'react-router-dom';
+import { transactRequestOrder,onhandList, inventoryTypeList } from "../App";
 
 const RequestOrder = () => {
     // navigate
     const navigate = useNavigate();
 
+    
+
     // states
     const [type, setType] = useState('');
     const [brand, setBrand] = useState('');
-    const [isOnuList, setIsOnuList] = useState([]);
     const [ftTel, setFtTel] = useState('');
     const [oldModel, setOldModel] = useState('');
     const [oldSN, setOldSN] = useState('');
     const [newSN, setNewSN] = useState('');
-    const [brandList, setBrandList] = useState([]);
-    const [notifSuccess, setNotifSuccess] = useState(false);
-    const [notifError, setNotifError] = useState(false)
+    const [listOfBrand, setListOfBrand] = useState([]);
+    const [listByType ,setListByType] = useState([]);
 
-    const submitROHandler = async(e)=>{
-        e.preventDefault();
-        if(type!=="" && brand!=="" && ftTel!=="" && oldModel!=="" && oldSN!=="" && newSN!==""){
-            const RO_input = {ftTel, type, brand, oldModel, oldSN, newSN};
-        const response = await fetch('https://pldt-backend.onrender.com/ft_request_order', {
-            method: 'POST',
-            body: JSON.stringify(RO_input),
-            headers: {
-            'Content-type': 'application/json'
-            }
-        })
-        const data = await response.json();
-        // if response is OK
-        if(response){
-            console.log(data)
-            // then update inventory table when serial is matched
-            await fetch('https://pldt-backend.onrender.com/inventory/update', {
-                method: 'PATCH',
-                headers: {
-                    'Content-type': 'application/json'
-                    }
-            })
     
+    const submitHandler = async (e)=> {
+        e.preventDefault();
+        try{
+            await transactRequestOrder(ftTel, type, brand, oldModel, oldSN, newSN);
             setType("")
             setBrand("")
             setFtTel("")
             setOldModel("")
             setOldSN("")
             setNewSN("")
-            setNotifSuccess(true);
-            setTimeout(()=> {
-                setNotifSuccess(false)
-            }, 5000)
         }
-        else{
-            console.log("error");
+        catch(error){
+            // Place error here
         }
-        }
-        else{
-            setNotifError(true);
-            setTimeout(()=> {
-                setNotifError(false)
-            }, 5000)
-        }
-        
     } 
+
+    
     const prevPage = ()=>{
         navigate(-1)
     }
-    const onuList = async()=>{
-        const response = await fetch(`https://pldt-backend.onrender.com/inventory/${brand}`)
-        const json = await response.json();
 
-        if(!response){
-            console.log("error")
+    const onhand = async ()=> {
+        try {
+            await onhandList(brand,setListOfBrand);
+        } 
+        catch (error) {
+            // Place error here
         }
-        setIsOnuList(json)
 
-    }
-    const onuBrandList = async () => {
-        const response = await fetch(`https://pldt-backend.onrender.com/inventory/${type}/brands`);
-        const json = await response.json();
-    
-        if (!response.ok) {
-          console.error(response.error);
+
+    } 
+
+    const inventoryType = async ()=> {
+        try {
+            await inventoryTypeList(type, setListByType)
+        } catch (error) {
+            
         }
-        setBrandList(json);
-
-      };
-
-      
+    }  
 
 const customStyles = {
     option: (styles, {isFocused}) => {
@@ -103,33 +73,17 @@ const customStyles = {
 
   
     useEffect(()=>{
-        console.table(brandList )
-        console.log("Type:", type)
-        console.table(isOnuList)
-        // onuList();
-        onuBrandList();
-        onuList();
-       console.log(newSN)
-
+        onhand();
+        inventoryType();
+        
     },[type, brand])
 
     return ( 
         <div className="w-full h-screen bg-slate-200 px-4 pt-[4rem]">
            
-            {notifError &&
-            <div className="p-4 mb-2 bg-red-400">
-                <p>Please fill all required details</p>
-            </div>
-
-            }
-            {notifSuccess && 
-                <div className="p-4 mb-2 bg-green-400">
-                <p>Request Order Submitted</p>
-            </div>
-
-            }
+          
             <div>
-                <form onSubmit={submitROHandler} className="flex flex-col gap-4">
+                <form onSubmit={submitHandler} className="flex flex-col gap-4">
                    
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Type</label>
@@ -156,13 +110,13 @@ const customStyles = {
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old Model</label>
                     <input onChange={(e)=>{
                         setOldModel(e.target.value)
-                    }} value={oldModel} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
+                    }} value={oldModel.toLocaleUpperCase()} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
                         setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
+                    }} value={oldSN.toLocaleUpperCase()} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
@@ -171,25 +125,16 @@ const customStyles = {
                     }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                       {
-                        brandList.map(brand => (
-                            <option value={brand.brand}>{brand.brand}</option>
+                        listByType.map(brand => (
+                            <option key={brand.inventory_id} value={brand.brand}>{brand.brand}</option>
                         ))
                       }
                     </select>
                 </div>
-                {(brand==="HUAWEI" || brand==="ZTE" || brand==="FIBERHOME")  &&
+                {(brand!=='')  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
-                    {/* <select onChange={(e)=>{
-                        setNewSN(e.target.value)
-                    }} value={newSN} className={`${newSN ? 'bg-slate-300': ''} w-full`} name="" id="">
-                        <option value=""></option>
-                      {
-                        isOnuList.map(onulist => (
-                            <option value={onulist.serial_no}>{onulist.model} - {onulist.serial_no}</option>
-                        ))
-                      }
-                    </select> */}
+                   
                     <Select
                     unstyled
                     onChange={(choice)=>{
@@ -204,7 +149,7 @@ const customStyles = {
                         
                        
                         
-                        isOnuList.map(onulist => (
+                        listOfBrand.map(onulist => (
                             
             {value: onulist.serial_no, label: onulist.serial_no}
         ))
@@ -245,8 +190,8 @@ const customStyles = {
                     }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
-                        brandList.map(brand => (
-                            <option value={brand.brand}>{brand.brand}</option>
+                        listByType.map(brand => (
+                            <option key={brand.inventory_id} value={brand.brand}>{brand.brand}</option>
                         ))
                        }
                     </select>
@@ -265,7 +210,7 @@ const customStyles = {
                         
                        
                         
-                        isOnuList.map(onulist => (
+                        listOfBrand.map(onulist => (
                             
             {value: onulist.serial_no, label: onulist.serial_no}
         ))
@@ -303,8 +248,8 @@ const customStyles = {
                     }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
-                        brandList.map(brand => (
-                            <option value={brand.brand}>{brand.brand}</option>
+                        listByType.map(brand => (
+                            <option key={brand.inventory_id} value={brand.brand}>{brand.brand}</option>
                         ))
                        }
                     </select>
@@ -324,7 +269,7 @@ const customStyles = {
                         
                        
                         
-                        isOnuList.map(onulist => (
+                        listOfBrand.map(onulist => (
                             
             {value: onulist.serial_no, label: onulist.serial_no}
         ))
@@ -364,8 +309,8 @@ const customStyles = {
                     }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
-                        brandList.map(brand => (
-                            <option value={brand.brand}>{brand.brand}</option>
+                        listByType.map(brand => (
+                            <option key={brand.inventory_id} value={brand.brand}>{brand.brand}</option>
                         ))
                        }
                     </select>
@@ -386,7 +331,7 @@ const customStyles = {
                         
                        
                         
-                        isOnuList.map(onulist => (
+                        listOfBrand.map(onulist => (
                             
             {value: onulist.serial_no, label: onulist.serial_no}
         ))
@@ -402,10 +347,11 @@ const customStyles = {
                 }          
 
                 <div className="flex justify-end gap-4">
-                    <button onClick={prevPage} className="bg-red-400 p-2">Back</button>
-                    <button type="submit" className="bg-green-400 p-2">Submit</button>
+                    
+                    <button type="submit" className="bg-green-400 p-2 w-full">Submit</button>
                 </div>
                 </form>
+                <button onClick={prevPage} className="bg-red-400 p-2 w-full mt-2">Back</button>
             </div>
         </div>
      );
