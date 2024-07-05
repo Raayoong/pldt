@@ -109,20 +109,20 @@ const customStyles = {
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old Model</label>
                     <input onChange={(e)=>{
-                        setOldModel(e.target.value)
+                        setOldModel(e.target.value.toLocaleUpperCase())
                     }} value={oldModel.toLocaleUpperCase()} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
-                        setOldSN(e.target.value)
+                        setOldSN(e.target.value.toLocaleUpperCase())
                     }} value={oldSN.toLocaleUpperCase()} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
                     <select  onChange={(e)=>{
-                        setBrand(e.target.value)
-                    }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
+                        setBrand(e.target.value.toLocaleUpperCase())
+                    }} value={brand.toLocaleUpperCase()}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                       {
                         listByType.map(brand => (
@@ -138,7 +138,7 @@ const customStyles = {
                     <Select
                     unstyled
                     onChange={(choice)=>{
-                        setNewSN(choice.value)
+                        setNewSN(choice.value.toLocaleUpperCase())
                     }
                         
                         }
@@ -174,20 +174,20 @@ const customStyles = {
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old Model</label>
                     <input onChange={(e)=>{
-                        setOldModel(e.target.value)
-                    }} value={oldModel} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
+                        setOldModel(e.target.value.toLocaleUpperCase())
+                    }} value={oldModel.toLocaleUpperCase()} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
-                        setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
+                        setOldSN(e.target.value.toLocaleUpperCase())
+                    }} value={oldSN.toLocaleUpperCase()} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
                     <select  onChange={(e)=>{
-                        setBrand(e.target.value)
-                    }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
+                        setBrand(e.target.value.toLocaleUpperCase())
+                    }} value={brand.toLocaleUpperCase()}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
                         listByType.map(brand => (
@@ -196,13 +196,13 @@ const customStyles = {
                        }
                     </select>
                 </div>
-                {(brand==="UVTECH" || brand==="LAYADA" || brand==="FULRUBELL")  &&
+                {(brand!=="")  &&
                     <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">New SN</label>
                     <Select
                     unstyled
                     onChange={(choice)=>{
-                        setNewSN(choice.value)
+                        setNewSN(choice.value.toLocaleUpperCase())
                     }}
                     className="w-full bg-slate-300"
                     styles={customStyles}
@@ -232,19 +232,19 @@ const customStyles = {
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old Model</label>
                     <input onChange={(e)=>{
-                        setOldModel(e.target.value)
+                        setOldModel(e.target.value.toLocaleUpperCase())
                     }} value={oldModel} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
-                        setOldSN(e.target.value)
+                        setOldSN(e.target.value.toLocaleUpperCase())
                     }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
                     <select  onChange={(e)=>{
-                        setBrand(e.target.value)
+                        setBrand(e.target.value.toLocaleUpperCase())
                     }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
@@ -261,7 +261,7 @@ const customStyles = {
                     unstyled
                     styles={customStyles}
                     onChange={(choice)=>{
-                        setNewSN(choice.value)
+                        setNewSN(choice.value.toLocaleUpperCase())
                     }}
                     className="w-full bg-slate-300"
                     
@@ -293,20 +293,20 @@ const customStyles = {
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old Model</label>
                     <input onChange={(e)=>{
-                        setOldModel(e.target.value)
-                    }} value={oldModel} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
+                        setOldModel(e.target.value.toLocaleUpperCase())
+                    }} value={oldModel.toLocaleUpperCase()} className={`${oldModel ? 'bg-slate-300' : ''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Old SN</label>
                     <input onChange={(e)=>{
-                        setOldSN(e.target.value)
-                    }} value={oldSN} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
+                        setOldSN(e.target.value.toLocaleUpperCase())
+                    }} value={oldSN.toLocaleUpperCase()} className={`${oldSN ? 'bg-slate-300':''} p-2 w-full`} type="text"  />
                 </div>
                 <div className="form-group flex w-full">
                     <label className="bg-slate-800 text-slate-100 p-2 w-[150px]" htmlFor="">Brand</label>
                     <select  onChange={(e)=>{
-                        setBrand(e.target.value)
-                    }} value={brand}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
+                        setBrand(e.target.value.toLocaleUpperCase())
+                    }} value={brand.toLocaleUpperCase()}  className={`${brand ? 'bg-slate-300':''} w-full`} name="" id="">
                         <option value=""></option>
                        {
                         listByType.map(brand => (
@@ -323,7 +323,7 @@ const customStyles = {
                     <Select
                     unstyled
                     onChange={(choice)=>{
-                        setNewSN(choice.value)
+                        setNewSN(choice.value.toLocaleUpperCase())
                     }}
                     className="w-full bg-slate-300"
                     styles={customStyles}

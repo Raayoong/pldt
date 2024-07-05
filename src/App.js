@@ -69,18 +69,12 @@ export const inventoryList = async (setListOfInventory) => {
 // add inventory 
 export const newInventoryItem = async(brand, type, model, serial, onhand)=>{
   const Swal = require("sweetalert2");
-  const input = {brand, type, model, serial, onhand};
-  const response = await fetch('https://pldt-backend.onrender.com/inventory', {
-method: "POST",
-body: JSON.stringify(input),
-headers: {
-  "Content-type" : "application/json"
-}
-});
-const json = await response.json();
+  
 
 try{
   
+  
+
   // Check if no input
   if(brand==='' || type==='' || model==='' || serial==='' || onhand===''){
     Swal.fire({
@@ -89,23 +83,30 @@ try{
       icon: "error",
     });
   }
-  else if(brand!=='' && type!=='' && model!=='' && serial!=='' && onhand!=='' && json.errno===1062){
-    Swal.fire({
-      title: "Duplicate SN",
-      text: `${model} SN already been added. Please check SN!`,
-      icon: "error",
-    });
-  }
-  else if(brand!=='' && type!=='' && model!=='' && serial!=='' && onhand!==''){
-    Swal.fire({
-      title: "New Inventory Item Added",
-      text: `${model} has been successfully added!`,
-      icon: "success",
-    });
-    console.log(json)
+  
+  if(brand!=='' && type!=='' && model!=='' && serial!=='' && onhand!==''){
+    const input = {brand, type, model, serial, onhand};
+  const response = await fetch('https://pldt-backend.onrender.com/inventory', {
+method: "POST",
+body: JSON.stringify(input),
+headers: {
+  "Content-type" : "application/json"
+}
+});
+const json = await response.json();
+if(brand!=='' && type!=='' && model!=='' && serial!=='' && onhand!=='' && json.errno===1062){
+  Swal.fire({
+    title: "Duplicate Serial No.",
+    text: `${serial} Already been added. Please check!`,
+    icon: "error",
+  });
+}
+  
+}
+   
   }
  
-}
+
 catch(error){
   
 }

@@ -160,9 +160,9 @@ const ViewRO = (props) => {
           >
             <div className="flex flex-col text-sm p-2 text-left">
               <span className="font-semibold">Tel #: {data.ft_telno}</span>
-              <span>Old Model: {data.old_model}</span>
+              <span>Old Model: {`${data.old_model}`.toLocaleUpperCase()}</span>
               <span>Old SN: {data.old_sn}</span>
-              <span>New SN: {data.new_sn}</span>
+              <span>New SN: {`${data.new_sn}`.toLocaleUpperCase()}</span>
             </div>
             <div className="flex items-center">
               <span

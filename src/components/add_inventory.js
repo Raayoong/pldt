@@ -51,7 +51,7 @@ const AddInventory = () => {
           </label>
           <select
             onChange={(e) => {
-              setType(e.target.value);
+              setType(e.target.value.toLocaleUpperCase());
             }}
             value={type}
             className={`${type!=='' ? 'bg-slate-300':''} w-full`}
@@ -74,7 +74,7 @@ const AddInventory = () => {
           </label>
           <input
             onChange={(e) => {
-              setBrand(e.target.value);
+              setBrand(e.target.value.toLocaleUpperCase());
             }}
             value={brand.toLocaleUpperCase()}
             className={`${brand!=='' ? 'bg-slate-300':''} p-2 w-full`}
@@ -90,7 +90,7 @@ const AddInventory = () => {
           </label>
           <input
             onChange={(e) => {
-              setModel(e.target.value);
+              setModel(e.target.value.toLocaleUpperCase());
             }}
             value={model.toLocaleUpperCase()}
             className={`${model!=='' ? 'bg-slate-300': ''} p-2 w-full`}
@@ -122,7 +122,7 @@ const AddInventory = () => {
           </label>
           <input
             onChange={(e) => {
-              setSerial(e.target.value);
+              setSerial(e.target.value.toLocaleUpperCase());
             }}
             value={serial.toLocaleUpperCase()}
             className={`${serial!=='' ? 'bg-slate-300':''} p-2 w-full`}
